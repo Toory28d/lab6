@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/header :: head">
+    <title>Операторы</title>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div class="container mt-4">
+    <h1>Операторы</h1>
+    <a href="/operators/new" class="btn btn-primary mb-3">Добавить нового оператора</a>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Департамент</th>
+            <th>Действия</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="operator : ${operators}">
+            <td th:text="${operator.id}"></td>
+            <td th:text="${operator.name}"></td>
+            <td th:text="${operator.surname}"></td>
+            <td th:text="${operator.department}"></td>
+            <td>
+                <a th:href="@{/operators/{id}/edit(id=${operator.id})}" class="btn btn-sm btn-warning">Редактировать</a>
+                <a th:href="@{/operators/{id}/delete(id=${operator.id})}" class="btn btn-sm btn-danger">Удалить</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

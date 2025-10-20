@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/header :: head">
+    <title>Заявки</title>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div class="container mt-4">
+    <h1>Заявки</h1>
+    <a href="/requests/new" class="btn btn-primary mb-3">Добавить новую заявку</a>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Имя Участника</th>
+            <th>Телефон</th>
+            <th>Курс</th>
+            <th>Обработана</th>
+            <th>Действия</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="request : ${requests}">
+            <td th:text="${request.id}"></td>
+            <td th:text="${request.userName}"></td>
+            <td th:text="${request.phone}"></td>
+            <td th:text="${request.course.name} + ' - ' + ${request.course.price} + ' USD'"></td>
+            <td th:text="${request.handled ? 'Да' : 'Нет'}"></td>
+            <td>
+                <a th:if="!${request.handled}" th:href="@{/requests/{id}/process(id=${request.id})}" class="btn btn-sm btn-success">Обработать</a>
+                <a th:href="@{/requests/{id}/operators(id=${request.id})}" class="btn btn-sm btn-info">Просмотр операторов</a>
+                <a th:href="@{/requests/{id}/edit(id=${request.id})}" class="btn btn-sm btn-warning">Редактировать</a>
+                <a th:href="@{/requests/{id}/delete(id=${request.id})}" class="btn btn-sm btn-danger">Удалить</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

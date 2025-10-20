@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/header :: head">
+    <title>Форма заявки</title>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div class="container mt-4">
+    <h1>Форма заявки</h1>
+    <form th:action="@{/requests}" th:object="${request}" method="post">
+        <input type="hidden" th:field="*{id}" />
+        <div class="form-group">
+            <label>Имя Участника:</label>
+            <input th:field="*{userName}" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>Комментарий:</label>
+            <textarea th:field="*{commentary}" class="form-control" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+            <label>Телефон:</label>
+            <input th:field="*{phone}" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>Курс:</label>
+            <select name="courseId" class="form-control">
+                <option th:each="course : ${courses}" th:value="${course.id}" th:text="${course.name} + ' - ' + ${course.price} + ' USD'"
+                        th:selected="${request.course != null and request.course.id == course.id}"></option>
+            </select>
+        </div>
+        <div th:if="!${request.handled}">
+            <h2>Выберите операторов</h2>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Выбрать</th>
+                    <th>Имя</th>
+                    <th>Фамилия</th>
+                    <th>Департамент</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="operator : ${operators}">
+                    <td><input type="checkbox" name="operatorIds" th:value="${operator.id}" th:checked="${request.operators.contains(operator)}" /></td>
+                    <td th:text="${operator.name}"></td>
+                    <td th:text="${operator.surname}"></td>
+                    <td th:text="${operator.department}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <button type="submit" class="btn btn-success">Добавить заявку</button>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/header :: head">
+    <title>Обработка заявки</title>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div class="container mt-4">
+    <h1>Обработка заявки #<span th:text="${request.id}"></span></h1>
+    <form th:action="@{/requests/{id}/assign(id=${request.id})}" method="post">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Выбрать</th>
+                <th>Имя</th>
+                <th>Фамилия</th>
+                <th>Департамент</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="operator : ${operators}">
+                <td><input type="checkbox" name="operatorIds" th:value="${operator.id}" /></td>
+                <td th:text="${operator.name}"></td>
+                <td th:text="${operator.surname}"></td>
+                <td th:text="${operator.department}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <button type="submit" class="btn btn-primary">Назначить</button>
+    </form>
+</div>
+</body>
+</html>
