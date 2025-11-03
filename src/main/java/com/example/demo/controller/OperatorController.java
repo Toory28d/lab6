@@ -1,4 +1,3 @@
-// src/main/java/com/example/demo/controller/OperatorController.java
 package com.example.demo.controller;
 
 import com.example.demo.entity.Operator;

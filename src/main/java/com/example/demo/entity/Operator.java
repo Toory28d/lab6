@@ -1,5 +1,6 @@
 package com.example.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -17,5 +18,6 @@ public class Operator {
     private String department;
 
     @ManyToMany(mappedBy = "operators")
+    @JsonIgnore
     private List<ApplicationRequest> requests = new ArrayList<>();
 }
