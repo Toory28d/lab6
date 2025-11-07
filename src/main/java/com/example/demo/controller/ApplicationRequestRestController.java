@@ -78,7 +78,6 @@ public class ApplicationRequestRestController {
         }
     }
 
-    // DTO for request creation/update
     public static class ApplicationRequestDto {
         private String userName;
         private String commentary;
@@ -86,7 +85,6 @@ public class ApplicationRequestRestController {
         private boolean handled;
         private Long courseId;
 
-        // Getters and setters
         public String getUserName() {
             return userName;
         }
